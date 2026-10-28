@@ -1,0 +1,206 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if selected_category %}
+        {{ selected_category.name }} - Products
+    {% elif search_query %}
+        Search: "{{ search_query }}" - Products
+    {% else %}
+        All Products - Product Catalogue
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    {% if selected_category %}
+        Browse {{ selected_category.name }} products
+    {% else %}
+        Browse our complete product catalogue
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Welcome to Our Product Catalogue</h1>
+        <p>Discover amazing products at unbeatable prices</p>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <form method="get" action="{% url 'products:product_list' %}" class="search-form">
+            <input 
+                type="text" 
+                name="search" 
+                placeholder="Search products..." 
+                value="{{ search_query }}"
+                class="search-input"
+            >
+            <button type="submit" class="search-button">
+                🔍 Search
+            </button>
+        </form>
+    </section>
+
+    <!-- Featured Products -->
+    {% if featured_products and not search_query and not selected_category %}
+    <section class="featured-section">
+        <h2 class="section-title">✨ Featured Products</h2>
+        <div class="featured-grid">
+            {% for product in featured_products %}
+            <div class="featured-card">
+                <a href="{% url 'products:product_detail' product.slug %}">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static 'products/images/placeholder.jpg' %}" alt="{{ product.name }}">
+                    {% endif %}
+                </a>
+                <div class="featured-badge">Featured</div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Category Filter -->
+    {% if categories %}
+    <section class="category-section">
+        <h2 class="section-title">Browse by Category</h2>
+        <div class="category-filter">
+            <a href="{% url 'products:product_list' %}" 
+               class="category-button {% if not selected_category %}active{% endif %}">
+                All Products ({{ total_products }})
+            </a>
+            {% for category in categories %}
+            <a href="?category={{ category.name }}" 
+               class="category-button {% if selected_category == category %}active{% endif %}">
+                {{ category.name }} ({{ category.product_count }})
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                {% if selected_category %}
+                    {{ selected_category.name }}
+                {% elif search_query %}
+                    Search Results for "{{ search_query }}"
+                {% else %}
+                    All Products
+                {% endif %}
+            </h2>
+            <p class="product-count">
+                Showing {{ products.count }} product{{ products.count|pluralize }}
+            </p>
+        </div>
+
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'products:product_detail' product.slug %}" class="product-link">
+                        <div class="product-image">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img src="{% static 'products/images/placeholder.jpg' %}" alt="{{ product.name }}">
+                            {% endif %}
+                            
+                            <!-- Badges -->
+                            {% if product.featured %}
+                                <span class="badge badge-featured">Featured</span>
+                            {% endif %}
+                            {% if product.get_savings_percentage %}
+                                <span class="badge badge-discount">-{{ product.get_savings_percentage }}%</span>
+                            {% endif %}
+                            {% if not product.is_in_stock %}
+                                <span class="badge badge-out-of-stock">Out of Stock</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="product-details">
+                            <h3 class="product-name">{{ product.name }}</h3>
+                            
+                            <div class="product-pricing">
+                                {% if product.discount_price %}
+                                    <span class="product-price-old">{{ product.get_price_display }}</span>
+                                    <span class="product-price">{{ product.get_discount_price_display }}</span>
+                                {% else %}
+                                    <span class="product-price">{{ product.get_price_display }}</span>
+                                {% endif %}
+                            </div>
+                            
+                            <p class="product-description">
+                                {{ product.description|truncatewords:20 }}
+                            </p>
+                            
+                            <div class="product-footer">
+                                <span class="stock-status {% if product.is_in_stock %}in-stock{% else %}out-of-stock{% endif %}">
+                                    {{ product.get_stock_status }}
+                                </span>
+                                <button class="btn-view-details">View Details</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">📦</div>
+                <h3>No Products Found</h3>
+                {% if search_query %}
+                    <p>No products match your search "{{ search_query }}".</p>
+                    <a href="{% url 'products:product_list' %}" class="btn-primary">
+                        View All Products
+                    </a>
+                {% elif selected_category %}
+                    <p>No products available in this category yet.</p>
+                    <a href="{% url 'products:product_list' %}" class="btn-primary">
+                        View All Products
+                    </a>
+                {% else %}
+                    <p>No products available at the moment. Please check back later!</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category.name }}{% endif %}" 
+               class="pagination-link">
+                &laquo; First
+            </a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category.name }}{% endif %}" 
+               class="pagination-link">
+                Previous
+            </a>
+        {% endif %}
+
+        <span class="pagination-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category.name }}{% endif %}" 
+               class="pagination-link">
+                Next
+            </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category.name }}{% endif %}" 
+               class="pagination-link">
+                Last &raquo;
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

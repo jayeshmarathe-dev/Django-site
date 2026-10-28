@@ -1,0 +1,64 @@
+[6204:8048:2026-3-14 10:7:1.513] Main Start
+[6204:8048:2026-3-14 10:7:1.513] Command line:"E:\DjangoProject\product_catalogue\products\static\products\images\Zoom_cm_fo42pnktZ9vvrZo4_mK-E7odcm-LVe1ka3fM3Iu2x2YLPMkC+txGWS@ZYHyPKV5u9uEyLA8_kfc0d4bc523826997_.exe"  Instance:0x280000 Show State:1
+[6204:8048:2026-3-14 10:7:1.608] Zoo
+[6204:4120:2026-3-14 10:7:1.612] [process_requst] start, url:https://us06web.zoom.us/conf/launch
+[6204:4120:2026-3-14 10:7:2.16] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[6204:4120:2026-3-14 10:7:2.16] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[6204:4120:2026-3-14 10:7:2.16] [read_response_content] API call zHttpQueryInfo failed, error: 12150
+[6204:4120:2026-3-14 10:7:2.18] [log_response_content] Content length (1048576 as unknown):1048576 , Total read: 2880 , Error No: 0 , Status code: 200
+[6204:4120:2026-3-14 10:7:2.18] [log_response_content] header:
+[6204:4120:2026-3-14 10:7:2.18] HTTP/1.1 200 OK
+Date: Sat, 14 Mar 2026 04:37:01 GMT
+Content-Type: text/plain;charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+x-zm-trackingid: v=2.0;clid=us06;rid=WEB_60993ca075151353f4e672eb8c7dcf75
+x-content-type-options: nosniff
+content-security-policy: upgrade-insecure-requests; default-src https://*.zoom.us https://zoom.us blob: 'self'; img-src https: about: blob: data: 'self'; style-src https: safari-extension: chrome-extension: 'unsafe-inline' data: 'self'; font-src https: safari-extension: chrome-extension: blob: data: 'self'; connect-src * about: blob: data: 'self'; media-src * rtmp: blob: data: 'self'; frame-src https: ms-appx-web: zoommtg: zoomus: wvjbscheme: zoomprc: zoomzccprc: data: blob: 'self'; object-src 'none'; base-uri 'none';
+x-frame-options: SAMEORIGIN
+Set-Cookie: _zm_feature=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Secure; HttpOnly
+x-zm-zoneid: OH1
+strict-transport-security: max-age=31536000; includeSubDomains
+x-xss-protection: 1; mode=block
+referrer-policy: strict-origin-when-cross-origin
+vary: accept-encoding
+cf-cache-status: DYNAMIC
+Set-Cookie: zm_aid=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: zm_haid=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: zm_tmaid=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: zm_htmaid=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: cred=A7C08DEF46F0BCF0741CD124FB9B4C1D; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_page_auth=us06_c_wO6H8EMJSWKwr6Auyw5r3Q; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_ssid=us06_c_2AVfv_smSCW5MZIliajJsg; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_ctaid=1s6qos9fTFCpgONSiJMM5A.1773463021310.7ef7e51dcf57e2367fb820c279e25869; Max-Age=7200; Expires=Sat, 14 Mar 2026 06:37:01 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_chtaid=593; Max-Age=7200; Expires=Sat, 14 Mar 2026 06:37:01 GMT; Domain=zoom.us; Path=/; Secure; HttpOnly
+Set-Cookie: _zm_mtk_guid=73bc7113377e4819a3f47598c916cabb; Max-Age=63072000; Expires=Mon, 13 Mar 2028 04:37:01 GMT; Domain=zoom.us; Path=/; Secure
+Set-Cookie: __cf_bm=k9BDI6uRzfTtN3GqNNc5hNDdIUTsBHZ.RXwx4RW8qAQ-1773463021-1.0.1.1-AsReoWi0hIWCUUlohFgth089KN8D0cTsh0J8ZC7JXFeai3MkpbBvhfmUG9yukBhe6VggGRw81jgrk.ODMlOMCi.QLg37t6897Rq2BueZ_uQ; path=/; expires=Sat, 14-Mar-26 05:07:01 GMT; domain=.us06web.zoom.us; HttpOnly; Secure; SameSite=None
+Server: cloudflare
+CF-RAY: 9dc094aa39ddefc3-BOM
+alt-svc: h3=":443"; ma=86400
+
+
+[6204:4120:2026-3-14 10:7:2.18] [process_requst] End for url:https://us06web.zoom.us/conf/launch, return code:200, Error:0, Response content size:2880
+[6204:8048:2026-3-14 10:7:2.52] [client_has_installed_app] found path:
+[6204:8048:2026-3-14 10:7:2.52]  ***NULL-POINTER-PLACEHOLDER***
+[6204:8048:2026-3-14 10:7:2.53] [param_query_local_path] path is: C:\Users\Angel computer\AppData\Roaming\Zoom\ZoomDownload\ dir create response : 1 system error: 1008
+[6204:8048:2026-3-14 10:7:2.53] [downloader_run] State:0
+[6204:17876:2026-3-14 10:7:2.54] [process_requst] start, url:https://us06web.zoom.us/client/latest/Installer.exe?archType=x64
+[6204:8048:2026-3-14 10:7:2.54] [client_has_installed_app] found path:
+[6204:8048:2026-3-14 10:7:2.54]  ***NULL-POINTER-PLACEHOLDER***
+[6204:17876:2026-3-14 10:7:2.627] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[6204:17876:2026-3-14 10:7:2.627] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[6204:17876:2026-3-14 10:7:2.727] [read_response_file] Status Code:200, content length: 1153920, total read: 1153920, error code: 0
+[6204:17876:2026-3-14 10:7:2.739] [process_requst] End for url:https://us06web.zoom.us/client/latest/Installer.exe?archType=x64, return code:200, Error:0, Response content size:0
+[6204:8048:2026-3-14 10:7:2.741] [handle_download_job_done] Index: 1 Curr index: 1 StatusCode: 200 Error: 0 Response is Empty. 
+[6204:17876:2026-3-14 10:7:2.925] [process_requst] start, url:https://us06web.zoom.us/client/latest/Zoom.msi?archType=x64
+[6204:17876:2026-3-14 10:7:3.206] [req_state_read_status_code] zHttpQueryInfo complete, status:200
+[6204:17876:2026-3-14 10:7:3.206] [req_state_read_status_code] zHttpQueryInfo complete, status:200 Error: 0
+[6204:17876:2026-3-14 10:7:7.45] [read_response_file] Status Code:200, content length: 43972623, total read: 43972623, error code: 0
+[6204:17876:2026-3-14 10:7:7.172] [process_requst] End for url:https://us06web.zoom.us/client/latest/Zoom.msi?archType=x64, return code:200, Error:0, Response content size:0
+[6204:8048:2026-3-14 10:7:7.182] [handle_download_job_done] Index: 3 Curr index: 3 StatusCode: 200 Error: 0 Response is Empty. 
+[6204:8048:2026-3-14 10:7:7.204] C:\Users\Angel computer\AppData\Roaming\Zoom\ZoomDownload\Installer.exe
+[6204:8048:2026-3-14 10:7:7.204] ZInstaller --conf.mode=silent --ipc_wnd=132864
+[6204:8048:2026-3-14 10:7:7.420] [launch_silent_install] Installer process created, result:42
+[6204:8048:2026-3-14 10:7:12.554] Main End

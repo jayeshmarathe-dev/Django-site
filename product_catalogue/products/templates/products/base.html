@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Browse our extensive product catalogue with great deals{% endblock %}">
+    <title>{% block title %}Product Catalogue{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'products/images/favicon.png' %}">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+    
+    <!-- Additional CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo-section">
+                    <a href="{% url 'products:product_list' %}" class="logo">
+                        🛍️ Product Catalogue
+                    </a>
+                </div>
+                
+                <div class="nav-links">
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="{% url 'products:product_list' %}" 
+                               class="nav-link {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a href="{% url 'products:product_list' %}" class="nav-link dropdown-toggle">
+                                    Products
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'products:product_list' %}" class="dropdown-item">All Products</a>
+                                    {% for cat in categories_menu %}
+                                        <a href="{% url 'products:product_list' %}?category={{ cat.name }}" class="dropdown-item">{{ cat.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/admin/" class="nav-link">
+                                Admin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Messages Section -->
+    {% if messages %}
+        <div class="messages-container">
+            <div class="container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                        <button class="close-alert">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>
+                        Your trusted online product catalogue with quality 
+                        products at competitive prices.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'products:product_list' %}">Products</a></li>
+                        <li><a href="/admin/">Admin Panel</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-contact">
+                        <li>📧 jayeshmarathe9999@gmail.com</li>
+                        <li>📞 +91 87678 944966</li>
+                        <li>📍 Pune, Maharashtra, India</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2025 Product Catalogue. All rights reserved.
+                    Made with Team ❤️
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    this.classList.toggle('active');
+                });
+            }
+            
+            // Close alert messages
+            document.querySelectorAll('.close-alert').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.style.display = 'none';
+                });
+            });
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,188 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Product Details{% endblock %}
+
+{% block meta_description %}{{ product.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{% url 'products:product_list' %}">Home</a>
+        <span>/</span>
+        {% if product.category %}
+            <a href="?category={{ product.category.name }}">{{ product.category.name }}</a>
+            <span>/</span>
+        {% endif %}
+        <span class="current">{{ product.name }}</span>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="product-detail-container">
+            <!-- Product Image -->
+            <div class="product-detail-image">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <img src="{% static 'products/images/placeholder.jpg' %}" alt="{{ product.name }}">
+                {% endif %}
+                
+                <!-- Image Badges -->
+                <div class="detail-badges">
+                    {% if product.featured %}
+                        <span class="badge badge-featured">⭐ Featured</span>
+                    {% endif %}
+                    {% if product.get_savings_percentage %}
+                        <span class="badge badge-discount">Save {{ product.get_savings_percentage }}%</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Information -->
+            <div class="product-detail-info">
+                <h1 class="product-detail-title">{{ product.name }}</h1>
+                
+                {% if product.category %}
+                    <div class="product-category">
+                        <span class="category-label">Category:</span>
+                        <a href="?category={{ product.category.name }}" class="category-link">
+                            {{ product.category.name }}
+                        </a>
+                    </div>
+                {% endif %}
+
+                <!-- Pricing Section -->
+                <div class="product-detail-pricing">
+                    {% if product.discount_price %}
+                        <div class="price-section">
+                            <span class="price-label">Original Price:</span>
+                            <span class="price-old">{{ product.get_price_display }}</span>
+                        </div>
+                        <div class="price-section">
+                            <span class="price-label">Sale Price:</span>
+                            <span class="price-current">{{ product.get_discount_price_display }}</span>
+                        </div>
+                        <div class="savings-info">
+                            You save: {{ product.get_savings|floatformat:2 }} 
+                            ({{ product.get_savings_percentage }}% off)
+                        </div>
+                    {% else %}
+                        <div class="price-section">
+                            <span class="price-label">Price:</span>
+                            <span class="price-current">{{ product.get_price_display }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Stock Status -->
+                <div class="stock-info">
+                    <span class="stock-label">Availability:</span>
+                    <span class="stock-status {% if product.is_in_stock %}in-stock{% else %}out-of-stock{% endif %}">
+                        {{ product.get_stock_status }}
+                    </span>
+                </div>
+
+                <!-- Description -->
+                <div class="product-detail-description">
+                    <h2 class="description-title">Product Description</h2>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <!-- Product Meta Info -->
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Product ID:</span>
+                        <span class="meta-value">#{{ product.id }}</span>
+                    </div>
+                    {% if product.category %}
+                    <div class="meta-item">
+                        <span class="meta-label">Category:</span>
+                        <span class="meta-value">{{ product.category.name }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="meta-item">
+                        <span class="meta-label">Listed:</span>
+                        <span class="meta-value">{{ product.created_at|date:"F d, Y" }}</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="product-actions">
+                    {% if product.is_in_stock %}
+                        <button class="btn-add-to-cart" onclick="alert('Cart functionality coming soon!')">
+                            🛒 Add to Cart
+                        </button>
+                        <button class="btn-buy-now" onclick="alert('Checkout functionality coming soon!')">
+                            ⚡ Buy Now
+                        </button>
+                    {% else %}
+                        <button class="btn-notify" onclick="alert('Notify functionality coming soon!')">
+                            🔔 Notify When Available
+                        </button>
+                    {% endif %}
+                    <button class="btn-wishlist" onclick="alert('Wishlist functionality coming soon!')">
+                        ❤️ Add to Wishlist
+                    </button>
+                </div>
+
+                <!-- Back Button -->
+                <div class="back-button-section">
+                    <a href="{% url 'products:product_list' %}" class="btn-back">
+                        ← Back to Products
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products Section -->
+    {% if related_products %}
+    <section class="related-products-section">
+        <h2 class="section-title">Related Products</h2>
+        <div class="related-products-grid">
+            {% for related in related_products %}
+            <div class="related-product-card">
+                <a href="{% url 'products:product_detail' related.slug %}">
+                    <div class="related-product-image">
+                        {% if related.image %}
+                            <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                        {% else %}
+                            <img src="{% static 'products/images/placeholder.jpg' %}" alt="{{ related.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="related-product-info">
+                        <h3>{{ related.name|truncatewords:5 }}</h3>
+                        <div class="related-product-price">
+                            {% if related.discount_price %}
+                                <span class="price-old">{{ related.get_price_display }}</span>
+                                <span class="price-current">{{ related.get_discount_price_display }}</span>
+                            {% else %}
+                                <span class="price-current">{{ related.get_price_display }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Image zoom functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const productImage = document.querySelector('.product-detail-image img');
+        
+        if (productImage) {
+            productImage.addEventListener('click', function() {
+                this.classList.toggle('zoomed');
+            });
+        }
+    });
+</script>
+{% endblock %}
